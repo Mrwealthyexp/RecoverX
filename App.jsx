@@ -18,11 +18,7 @@ const abiRecovery = [
   'function recoverTokens(address token)'
 ];
 
-const { chains, provider } = configureChains(
-  [polygonMumbai],
-  [publicProvider()]
-);
-
+const { chains, provider } = configureChains([polygonMumbai],[publicProvider()]);
 const { connectors } = getDefaultWallets({ appName: 'ReclaimX', chains });
 const wagmiClient = createClient({ autoConnect: true, connectors, provider });
 
@@ -33,7 +29,7 @@ export default function App() {
   const [amount, setAmount] = useState('');
   const [recoveryToken, setRecoveryToken] = useState('');
 
-  async function setFallbackHandler() {
+  async function setFallbackHandler(){
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(routerAddress, abiRouter, signer);
@@ -41,7 +37,7 @@ export default function App() {
     alert('Fallback address set!');
   }
 
-  async function safeTransferHandler() {
+  async function safeTransferHandler(){
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(routerAddress, abiRouter, signer);
@@ -49,7 +45,7 @@ export default function App() {
     alert('Safe transfer executed!');
   }
 
-  async function recoverHandler() {
+  async function recoverHandler(){
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(recoveryAddress, abiRecovery, signer);
@@ -60,23 +56,29 @@ export default function App() {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <main style={{ padding: '20px', fontFamily: 'Arial' }}>
+        <main style={{padding:'20px'}}>
           <h1>ReclaimX DApp</h1>
           <ConnectButton />
 
-          <h2>Set Fallback Address</h2>
-          <input placeholder='0xFallback' value={fallback} onChange={e => setFallback(e.target.value)} />
-          <button onClick={setFallbackHandler}>Set</button>
+          <section>
+            <h2>Set Fallback Address</h2>
+            <input placeholder='0xFallback' value={fallback} onChange={e=>setFallback(e.target.value)} />
+            <button onClick={setFallbackHandler}>Set</button>
+          </section>
 
-          <h2>Safe Transfer</h2>
-          <input placeholder='Token Address' value={token} onChange={e => setToken(e.target.value)} />
-          <input placeholder='Recipient Address' value={recipient} onChange={e => setRecipient(e.target.value)} />
-          <input placeholder='Amount' value={amount} onChange={e => setAmount(e.target.value)} />
-          <button onClick={safeTransferHandler}>Send</button>
+          <section>
+            <h2>Safe Transfer</h2>
+            <input placeholder='Token Address' value={token} onChange={e=>setToken(e.target.value)} />
+            <input placeholder='Recipient Address' value={recipient} onChange={e=>setRecipient(e.target.value)} />
+            <input placeholder='Amount' value={amount} onChange={e=>setAmount(e.target.value)} />
+            <button onClick={safeTransferHandler}>Send</button>
+          </section>
 
-          <h2>Recover Tokens</h2>
-          <input placeholder='Token Address' value={recoveryToken} onChange={e => setRecoveryToken(e.target.value)} />
-          <button onClick={recoverHandler}>Recover</button>
+          <section>
+            <h2>Recover Tokens</h2>
+            <input placeholder='Token Address' value={recoveryToken} onChange={e=>setRecoveryToken(e.target.value)} />
+            <button onClick={recoverHandler}>Recover</button>
+          </section>
         </main>
       </RainbowKitProvider>
     </WagmiConfig>
