@@ -1,11 +1,3 @@
-# ReclaimX – Web3 Recovery DApp
+# ReclaimX Phase Two
 
-## Local Dev
-```bash
-npm install
-npm run dev
-```
-
-## Deploy to Vercel
-- Build command: `npm run build`
-- Output dir: `dist`
+This project includes the full front-end and configuration to complete Phase Two of ReclaimX. Follow instructions in README to deploy.
