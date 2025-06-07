@@ -1,40 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
+// src/components/Routerdashboard.jsx import React from 'react'; import '../styles/Routerdashboard.css';
 
-const routerAddress = 'YOUR_ROUTER_CONTRACT_ADDRESS';
-const tokenAbi = ['function balanceOf(address) view returns (uint256)'];
-const abiRouter = ['function fallbackAddress() view returns (address)'];
+const Routerdashboard = () => { return ( <div className="router-dashboard"> <h2 className="router-title">Router Dashboard</h2> <div className="router-status"> <div className="router-box"> <span className="label">Router Address:</span> <span className="value">0x123...abc</span> </div> <div className="router-box"> <span className="label">Status:</span> <span className="value online">Online</span> </div> <div className="router-box"> <span className="label">Synced Blocks:</span> <span className="value">137,941</span> </div> </div> </div> ); };
 
-const SmartMonitor = () => {
-  const [balance, setBalance] = useState('');
-  const [fallbackAddr, setFallbackAddr] = useState('');
-  const tokenAddress = 'YOUR_TOKEN_ADDRESS';
+export default Routerdashboard;
 
-  useEffect(() => {
-    const loadInfo = async () => {
-      if (!window.ethereum) return;
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const userAddress = await signer.getAddress();
+// src/components/Smartmonitor.jsx import React from 'react'; import '../styles/Smartmonitor.css';
 
-      const token = new ethers.Contract(tokenAddress, tokenAbi, provider);
-      const bal = await token.balanceOf(userAddress);
-      setBalance(ethers.formatUnits(bal));
+const Smartmonitor = () => { return ( <div className="smart-monitor"> <h2 className="monitor-title">Smart Contract Monitor</h2> <div className="monitor-content"> <div className="monitor-box"> <span className="label">Contract Address:</span> <span className="value">0xABC1234567890DEF1234567890ABCDEF12345678</span> </div> <div className="monitor-box"> <span className="label">Events Tracked:</span> <span className="value">Last 50 Events</span> </div> <div className="monitor-box"> <span className="label">Status:</span> <span className="value active">Active</span> </div> </div> </div> ); };
 
-      const router = new ethers.Contract(routerAddress, abiRouter, provider);
-      const fallback = await router.fallbackAddress();
-      setFallbackAddr(fallback);
-    };
-    loadInfo();
-  }, []);
+export default Smartmonitor;
 
-  return (
-    <div className="bg-zinc-900 text-white p-4 rounded-xl mt-6">
-      <h2 className="text-xl font-bold mb-4">Smart Monitor</h2>
-      <p><strong>Token Balance:</strong> {balance}</p>
-      <p><strong>Fallback Address:</strong> {fallbackAddr}</p>
-    </div>
-  );
-};
-
-export default SmartMonitor;
