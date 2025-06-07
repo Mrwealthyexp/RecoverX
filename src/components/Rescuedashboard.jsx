@@ -1,44 +1,30 @@
-// src/components/RescueDashboard.jsx import React, { useState } from 'react'; import { useAccount, useSigner } from 'wagmi'; import { ethers } from 'ethers';
+// Phase 4: Smart Rescue Dashboard // File: src/components/Rescuedashboard.jsx
 
-const recoveryAddress = 'YOUR_RECOVERY_CONTRACT_ADDRESS'; const abiRecovery = [ 'function recoverTokens(address token)' // ABI for recovery contract ];
+import React, { useState } from 'react'; import { ethers } from 'ethers';
 
-export default function RescueDashboard() { const { isConnected } = useAccount(); const { data: signer } = useSigner();
+const rescueABI = [ 'function recoverTokens(address token)' // Add any additional functions later ];
 
-const [tokenAddress, setTokenAddress] = useState(''); const [status, setStatus] = useState('');
+export default function Rescuedashboard() { const [tokenAddress, setTokenAddress] = useState(''); const [status, setStatus] = useState('');
 
-async function recoverTokensHandler() { try { if (!signer) throw new Error('Wallet not connected');
+const contractAddress = '0xFILL_YOUR_RECOVERY_CONTRACT_ADDRESS'; // Replace this with actual address
 
-const contract = new ethers.Contract(recoveryAddress, abiRecovery, signer);
-  const tx = await contract.recoverTokens(tokenAddress);
-  setStatus('Waiting for confirmation...');
+const handleRecovery = async () => { try { setStatus('Connecting to wallet...'); const provider = new ethers.BrowserProvider(window.ethereum); const signer = await provider.getSigner(); const contract = new ethers.Contract(contractAddress, rescueABI, signer);
+
+const tx = await contract.recoverTokens(tokenAddress);
+  setStatus('Transaction sent. Waiting for confirmation...');
   await tx.wait();
   setStatus('✅ Tokens successfully recovered!');
-} catch (error) {
-  setStatus(`❌ Error: ${error.message}`);
+} catch (err) {
+  console.error(err);
+  setStatus('❌ Error during recovery. See console for details.');
 }
 
-}
+};
 
-return ( <div className="bg-gray-900 text-white p-4 rounded shadow-md w-full max-w-xl mx-auto mt-10"> <h2 className="text-xl font-semibold mb-4">🛠 ReclaimX Token Recovery</h2>
+return ( <div className="border-t border-gray-700 pt-6 mt-8"> <h2 className="text-xl font-semibold mb-4">🛡️ Rescue Dashboard</h2> <input type="text" placeholder="Token Contract Address" value={tokenAddress} onChange={(e) => setTokenAddress(e.target.value)} className="w-full p-2 bg-gray-900 border border-gray-600 rounded mb-3" /> <button
+onClick={handleRecovery}
+className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded"
+> Recover Tokens </button> {status && <p className="mt-3 text-sm text-yellow-300">{status}</p>} </div> ); }
 
-<input
-    type="text"
-    placeholder="Enter token contract address"
-    className="w-full p-2 mb-4 bg-gray-800 border border-gray-600 rounded"
-    value={tokenAddress}
-    onChange={(e) => setTokenAddress(e.target.value)}
-  />
 
-  <button
-    onClick={recoverTokensHandler}
-    disabled={!isConnected}
-    className="bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-500 disabled:opacity-50"
-  >
-    Recover Tokens
-  </button>
-
-  {status && <p className="mt-4 text-sm">{status}</p>}
-</div>
-
-); }
 
