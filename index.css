@@ -1,0 +1,28 @@
+/* ReclaimX Dark Theme Global Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f172a; /* Tailwind's slate-900 */
+  color: #f8fafc;            /* Tailwind's slate-50 */
+}
+
+a {
+  color: #38bdf8; /* Tailwind's sky-400 */
+  text-decoration: none;
+}
+
+button {
+  background-color: #1e293b; /* slate-800 */
+  border: none;
+  color: #f8fafc;
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #334155; /* slate-700 */
+}
