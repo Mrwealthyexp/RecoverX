@@ -1,87 +1,28 @@
-/* Reset some basic styles */
-* {
+/* ReclaimX Dark Theme Global Styles */
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  height: 100%;
-  width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0f0f0f;
-  color: #ffffff;
-  line-height: 1.6;
-  overflow-x: hidden;
+  background-color: #0f172a; /* Tailwind's slate-900 */
+  color: #f8fafc;            /* Tailwind's slate-50 */
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Container for layout */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Utility spacing */
-.mt-2 { margin-top: 0.5rem; }
-.mt-4 { margin-top: 1rem; }
-.mb-4 { margin-bottom: 1rem; }
-.p-2  { padding: 0.5rem; }
-.p-4  { padding: 1rem; }
-
-/* Form styles */
-input, button {
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-}
-
-input {
-  width: 100%;
-  background-color: #1c1c1c;
-  color: #fff;
-  border: 1px solid #333;
+a {
+  color: #38bdf8; /* Tailwind's sky-400 */
+  text-decoration: none;
 }
 
 button {
-  background-color: #00cc99;
-  color: white;
+  background-color: #1e293b; /* slate-800 */
+  border: none;
+  color: #f8fafc;
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-weight: bold;
+  transition: background 0.2s ease-in-out;
 }
 
 button:hover {
-  background-color: #00b386;
-}
-
-/* Headings */
-h1, h2, h3 {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-h1 {
-  font-size: 2rem;
-  color: #00cc99;
-}
-
-h2 {
-  font-size: 1.5rem;
-  color: #00e6ac;
-}
-
-/* Section styling */
-section {
-  background-color: #1a1a1a;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background-color: #334155; /* slate-700 */
 }
