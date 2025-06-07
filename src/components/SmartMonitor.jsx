@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './Smartmonitor.css';
 
 const Smartmonitor = ({ contractAddress }) => {
   const [status, setStatus] = useState('Checking...');
   const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
-    // Simulate contract monitoring
     const simulateCheck = setTimeout(() => {
       setStatus('All systems operational');
       setLastUpdated(new Date().toLocaleString());
@@ -16,28 +14,28 @@ const Smartmonitor = ({ contractAddress }) => {
   }, [contractAddress]);
 
   return (
-    <div className="smartmonitor-container">
-      <div className="smartmonitor-header">
-        <h2>Smart Monitor</h2>
-        <p>Live contract watch status</p>
+    <div className="bg-zinc-900 text-white p-6 rounded-2xl shadow-md max-w-xl mx-auto">
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold">Smart Monitor</h2>
+        <p className="text-sm text-zinc-400">Live contract watch status</p>
       </div>
 
-      <div className="smartmonitor-body">
-        <div className="monitor-row">
-          <span className="monitor-label">Contract Address:</span>
-          <span className="monitor-value">{contractAddress}</span>
+      <div className="space-y-4">
+        <div className="flex justify-between">
+          <span className="text-zinc-300 font-medium">Contract Address:</span>
+          <span className="text-sky-400 font-mono text-sm break-all">{contractAddress}</span>
         </div>
 
-        <div className="monitor-row">
-          <span className="monitor-label">Status:</span>
-          <span className={`monitor-status ${status === 'All systems operational' ? 'ok' : 'pending'}`}>
+        <div className="flex justify-between">
+          <span className="text-zinc-300 font-medium">Status:</span>
+          <span className={`font-bold ${status === 'All systems operational' ? 'text-green-400' : 'text-yellow-400'}`}>
             {status}
           </span>
         </div>
 
-        <div className="monitor-row">
-          <span className="monitor-label">Last Updated:</span>
-          <span className="monitor-value">{lastUpdated || 'Loading...'}</span>
+        <div className="flex justify-between">
+          <span className="text-zinc-300 font-medium">Last Updated:</span>
+          <span className="text-sm text-sky-300">{lastUpdated || 'Loading...'}</span>
         </div>
       </div>
     </div>
@@ -45,4 +43,3 @@ const Smartmonitor = ({ contractAddress }) => {
 };
 
 export default Smartmonitor;
-
