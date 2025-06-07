@@ -1,12 +1,48 @@
-// src/components/Routerdashboard.jsx import React from 'react'; import '../styles/Routerdashboard.css';
+import React, { useEffect, useState } from 'react';
+import './Smartmonitor.css';
 
-const Routerdashboard = () => { return ( <div className="router-dashboard"> <h2 className="router-title">Router Dashboard</h2> <div className="router-status"> <div className="router-box"> <span className="label">Router Address:</span> <span className="value">0x123...abc</span> </div> <div className="router-box"> <span className="label">Status:</span> <span className="value online">Online</span> </div> <div className="router-box"> <span className="label">Synced Blocks:</span> <span className="value">137,941</span> </div> </div> </div> ); };
+const Smartmonitor = ({ contractAddress }) => {
+  const [status, setStatus] = useState('Checking...');
+  const [lastUpdated, setLastUpdated] = useState(null);
 
-export default Routerdashboard;
+  useEffect(() => {
+    // Simulate contract monitoring
+    const simulateCheck = setTimeout(() => {
+      setStatus('All systems operational');
+      setLastUpdated(new Date().toLocaleString());
+    }, 2000);
 
-// src/components/Smartmonitor.jsx import React from 'react'; import '../styles/Smartmonitor.css';
+    return () => clearTimeout(simulateCheck);
+  }, [contractAddress]);
 
-const Smartmonitor = () => { return ( <div className="smart-monitor"> <h2 className="monitor-title">Smart Contract Monitor</h2> <div className="monitor-content"> <div className="monitor-box"> <span className="label">Contract Address:</span> <span className="value">0xABC1234567890DEF1234567890ABCDEF12345678</span> </div> <div className="monitor-box"> <span className="label">Events Tracked:</span> <span className="value">Last 50 Events</span> </div> <div className="monitor-box"> <span className="label">Status:</span> <span className="value active">Active</span> </div> </div> </div> ); };
+  return (
+    <div className="smartmonitor-container">
+      <div className="smartmonitor-header">
+        <h2>Smart Monitor</h2>
+        <p>Live contract watch status</p>
+      </div>
+
+      <div className="smartmonitor-body">
+        <div className="monitor-row">
+          <span className="monitor-label">Contract Address:</span>
+          <span className="monitor-value">{contractAddress}</span>
+        </div>
+
+        <div className="monitor-row">
+          <span className="monitor-label">Status:</span>
+          <span className={`monitor-status ${status === 'All systems operational' ? 'ok' : 'pending'}`}>
+            {status}
+          </span>
+        </div>
+
+        <div className="monitor-row">
+          <span className="monitor-label">Last Updated:</span>
+          <span className="monitor-value">{lastUpdated || 'Loading...'}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Smartmonitor;
 
